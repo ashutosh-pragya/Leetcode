@@ -1,0 +1,101 @@
+#include<bits/stdc++.h>
+
+using namespace std;
+
+#define ll 			long long int
+#define w(x) 		int x; cin>>x; while(x--)
+#define pb			push_back()
+#define vi			vector<int>
+#define mod			1000000007
+
+
+
+int main()
+{
+#ifndef ONLINE_JUDGE
+	freopen("input.txt", "r", stdin);
+	freopen("output.txt", "w", stdout);
+#endif
+	w(t) {
+		ll n, m, x;
+		cin >> n >> m;
+		ll ans = 0;
+		ll rating[n][m], rank[n][m], rating_ini[n], rating_sort[n];
+		for (ll i = 0; i < n; i++)
+			cin >> rating_ini[i];
+		for (ll i = 0; i < n; i++)
+		{
+			ll a = rating_ini[i];
+			for (ll j = 0; j < m; j++)
+			{
+				ll x;
+				cin >> x;
+				a = a + x;
+				rating[i][j] = a;
+
+			}
+			// cout << endl;
+		}
+		for (ll i = 0; i < m; i++)
+		{
+			for (ll j = 0; j < n; j++)
+			{
+				rating_sort[j] = rating[j][i];
+				// cout << rating_sort[j] << endl;
+			}
+			sort(rating_sort, rating_sort + n);
+			for (ll j = 0; j < n; j++)
+			{
+				ll r = 0;
+				for (ll k = n - 1; k >= 0; k--)
+				{
+
+					if (rating[j][i] == rating_sort[k])
+					{
+						break;
+					}
+					r++;
+
+				}
+				rank[j][i] = r + 1;
+				// cout << r << endl;
+
+			}
+		}
+		// for (int i = 0; i < n; i++)
+		// {
+		// 	for (int j = 0; j < m; j++)
+		// 	{
+		// 		cout << rating[i][j] << " ";
+		// 	}
+		// 	cout << endl;
+		// }
+
+		for (ll i = 0; i < n; i++)
+		{
+			ll x = 0, y = 0, val_x = rating[i][0], val_y = rank[i][0];
+			for (ll j = 0; j < m; j++)
+			{
+				if (rating[i][j] > val_x)
+				{
+					val_x = rating[i][j];
+					x = j;
+				}
+			}
+			// cout <<
+			for (ll j = 0; j < m; j++)
+			{
+				if (rank[i][j] < val_y)
+				{
+					val_y = rank[i][j];
+					y = j;
+				}
+			}
+			if (x != y)
+				ans++;
+		}
+
+		 cout << ans << endl;
+	}
+
+}
