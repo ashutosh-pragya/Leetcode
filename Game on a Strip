@@ -1,0 +1,49 @@
+int main(){
+	int t;
+	cin>>t;
+	for(int test=0;test<t;test++){
+		int n;
+		cin>>n;
+		bool a[n];
+		for(int i=0;i<n;i++){
+			cin>>a[i];
+		}
+		int zeroes[(n+1)/2];
+		memset(zeroes,0,sizeof(zeroes));
+		int mark=-1;
+//		if(a[0]==0){
+//			mark++;
+//			zeroes[mark]++;
+//		}
+		for(int i=1;i<n-1;i++){
+			if(a[i]==0 && a[i-1]==1){
+				mark++;
+				zeroes[mark]++;
+			}
+			else if(a[i]==0){
+				zeroes[mark]++;
+			}
+		}
+		sort(zeroes,zeroes+((n+1)/2),greater<int>());
+//		for(int i=0;i<((n+1)/2);i++){
+//			cout<<zeroes[i];
+//		}
+		if(zeroes[0]==zeroes[1]){
+				cout<<"No"<<endl;
+		}
+		else{
+			if(zeroes[0]%2==0){
+				cout<<"No"<<endl;
+			}
+			else{
+			    if(zeroes[1]>=(zeroes[0]+1)/2){
+			        cout<<"No"<<endl;
+			    }
+			    else{
+				    cout<<"Yes"<<endl;
+			    }
+			}
+		}
+	}
+	return 0;
+}
